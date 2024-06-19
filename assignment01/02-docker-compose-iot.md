@@ -4,14 +4,19 @@
 ## How to start docker compose
 
 ```bash
-sudo docker compose up
+1. cd into your gitHub folder
+2. sudo docker compose up
 ```
 
 ## Error we found
-
+1. Zookeeper
+2. root error c:/rootfs:ro0
+3. don't have permission for ./grafana/setup.sh:/setup.sh
 
 ## How to solve the problems.
-
+1. comment all zookeeper line(201-235) on docker_compose.yml
+2. change all c:/rootfs:ro0 to /:/rootfs:ro because it not window on docker_compose.yml
+3. Allow permission by cd in Gramfana folder and type chomod 777 setup.sh
 
 ## Output
 
