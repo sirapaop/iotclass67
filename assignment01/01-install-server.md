@@ -13,6 +13,11 @@
 ## How to install Docker
 
 1. install docker ตามลิงค์ https://docs.docker.com/engine/install/ubuntu/
-2. 
+2. ตรวจสอบ docker ใช้คำสั่ง docker --version
+3. install git โดยใช้คำสั่ง sudo apt install git
+4. ตรวจสอบ git ใช้คำสั่ง git --version
+5. สร้าง folder เพื่อรองรับ git clone
+6. ทำการ clone project ลงใน folder ที่สร้างใช้คำสั่ง git clone https://github.com/sergio11/iot_event_streaming_architecture.git
+7. ตรวจสอบว่ามีไฟล์ที่ลงใน folder โดยใช้คำสั่ง ls
 
 
