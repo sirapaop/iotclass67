@@ -2,9 +2,8 @@
 
 
 ## How to start docker compose
-
-```bash
 1. cd into your gitHub folder
+```bash
 2. sudo docker compose up
 ```
 
