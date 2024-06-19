@@ -4,7 +4,7 @@
 ## How to start docker compose
 
 ```bash
-
+sudo docker compose up
 ```
 
 ## Error we found
