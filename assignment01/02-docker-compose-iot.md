@@ -15,7 +15,7 @@
 ## How to solve the problems.
 1. comment all zookeeper line(201-235) on docker_compose.yml
 2. change all c:/rootfs:ro0 to /:/rootfs:ro because it not window on docker_compose.yml
-3. Allow permission by cd in Gramfana folder and type chomod 777 setup.sh
+3. Allow permission by cd in Gramfana folder and type chmod 777 setup.sh
 
 ## Output
 
