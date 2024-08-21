@@ -15,7 +15,7 @@ when we run docker compose up
  cd /etc/grafana
 
  ```
-
+ - vim grafana.ini 
  - find angular (/angular)
  - change ;angular_support_enabled = false    to    angular_support_enabled = true
  - restart docker
