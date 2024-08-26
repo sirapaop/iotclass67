@@ -49,6 +49,8 @@ grafana:
 cd /var/lib/grafana/plugins
 ```
 
+</br>
+
 #### 2. สร้าง directory มา 1 directory ด้วยชื่ออะไรก็ได้ เพื่อเก็บ plugin file ที่เราจะทำการ get และ cd เข้าไป
 
 ```bash
@@ -70,7 +72,6 @@ wget https://github.com/skyfrank/grafana-flowcharting/releases/download/v1.0.0e/
 sudo apt-get update
 sudo apt-get install wget
 ```
-</br>
 
 #### 4. extract zip file ด้วยการใช้ unzip
 
