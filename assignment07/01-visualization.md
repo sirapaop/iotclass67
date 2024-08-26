@@ -42,14 +42,12 @@ grafana:
 ```
 
 ### **_2. ติดตั้ง FlowCharting_**
+
 #### 1. cd เข้าไปใน plugin directory
 
 ```bash
 cd /var/lib/grafana/plugins
 ```
-
-</br>
-
 #### 2. สร้าง directory มา 1 directory ด้วยชื่ออะไรก็ได้ เพื่อเก็บ plugin file ที่เราจะทำการ get และ cd เข้าไป
 
 ```bash
