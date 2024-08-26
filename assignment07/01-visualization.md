@@ -83,7 +83,7 @@ unzip agenty-flowcharting-panel-1.0.0e.231214594-SNAPSHOT.zip
 mv dist ../grafana-flowcharting-panel
 ```
 </br>
-#### **_แก้ไขให้ grafana รองรับ angular plugin ได้เนื่องจาก grafana เวอร์ชั่นใหม่ ๆ ไม่รองรับแล้ว แต่เราแก้ไขได้_**
+#### แก้ไขให้ grafana รองรับ angular plugin ได้เนื่องจาก grafana เวอร์ชั่นใหม่ ๆ ไม่รองรับแล้ว แต่เราแก้ไขได้
 
 - เข้าไปใน container ของ grafana
 
