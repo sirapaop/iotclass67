@@ -42,7 +42,6 @@ grafana:
 ```
 
 ### **_2. ติดตั้ง FlowCharting_**
-
 #### 1. cd เข้าไปใน plugin directory
 
 ```bash
