@@ -127,3 +127,6 @@ docker compose restart grafana
 **จากนั้นก็เข้าไปใน grafana ผ่าน browser เพื่อตรวจสอบว่ามี plugin ชื่อ FlowCharting ติดตั้งแล้วหรือยัง ถ้ามีแสดงว่าติดตั้งสำเร็จแล้ว**
 
 </br>
+</br>
+
+## <mark>การใช้งาน FlowCharting</mark>
