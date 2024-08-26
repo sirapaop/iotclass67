@@ -40,7 +40,7 @@ grafana:
  ```bash
  docker compose up grafana
 ```
-
+</br>
 ### **_2. ติดตั้ง FlowCharting_**
 
 #### 1. cd เข้าไปใน plugin directory
