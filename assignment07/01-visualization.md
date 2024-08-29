@@ -130,7 +130,7 @@ docker compose restart grafana
 # การใช้งาน FlowCharting
 
 ออกแบบ chart ตามต้องการผ่าน drawio ในที่นี้ได้ใช้แผนผังบ้านซึ่งเราจะวาง sensors 10 ตัวสำหรับรับค่าอุณหภูมิจาก sensor มาแสดงที่ dashboard
-![](./grafana_pic/house10sensor.png)
+![pic_1](./grafana_pic/house10sensor.png)
 </br>
 
 1. เริ่มจากการดึง plugin flowcharting ที่ install ข้างต้นมาใช้งานโดยกด add ที่มุมขวาบนแล้วค้นหาคำว่า flowcharting 
