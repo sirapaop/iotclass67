@@ -87,29 +87,31 @@ docker compose up iot_sensor_1
 ```
 docker compose up zookeeper kafka
 ```
-
-อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+Zookeeper: บริการนี้มีหน้าที่ในการจัดการและประสานงานแอปพลิเคชันแบบกระจาย เช่น Kafka โดยจะเก็บข้อมูลเกี่ยวกับโบรกเกอร์ของ Kafka และทำการจัดการเกี่ยวกับการเลือกผู้นำ (leader election)
+Kafka: Apache Kafka เป็นแพลตฟอร์มสำหรับการสตรีมข้อมูลแบบกระจายที่ใช้สำหรับสร้างท่อข้อมูลแบบเรียลไทม์และแอปพลิเคชันสตรีมมิ่ง โดยสามารถจัดการข้อมูลขนาดใหญ่ได้อย่างทนทานต่อข้อผิดพลาด
 
 ## start-service #1
 >> 
 ```
-docker compose up zookeeper kafka
+docker compose up kafka-rest-proxy kafka-connect mosquitto mongo grafana prometheus
 ```
-
-อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+Kafka REST Proxy: ให้บริการอินเทอร์เฟซแบบ RESTful สำหรับการทำงานกับ Kafka ทำให้ไคลเอนต์สามารถส่งและรับข้อความผ่าน HTTP
+Kafka Connect: เครื่องมือที่ช่วยในการสตรีมข้อมูลระหว่าง Kafka และระบบอื่นๆ ทำให้ง่ายต่อการรวมข้อมูล
+Mosquitto: ตัวกลาง (broker) ของ MQTT ที่ช่วยในการส่งข้อความแบบเบา (lightweight messaging) ระหว่างอุปกรณ์ในระบบ IoT โดยใช้รูปแบบการสื่อสารแบบ publish/subscribe
+MongoDB: ฐานข้อมูลแบบ NoSQL ที่ใช้ในการจัดเก็บและเรียกคืนข้อมูลจำนวนมากที่ไม่ได้มีโครงสร้าง โดยส่วนมากจะใช้ในการเก็บข้อมูลจากเซนเซอร์ในระบบ IoT
+Grafana: เครื่องมือวิเคราะห์และติดตามที่ใช้สำหรับการแสดงผลข้อมูลจากแหล่งข้อมูลต่างๆ เช่น Prometheus และ MongoDB
+Prometheus: ระบบตรวจสอบและการแจ้งเตือนที่ใช้ในการรวบรวมข้อมูลจากบริการต่างๆ โดยปกติจะใช้ร่วมกับ Grafana สำหรับการแสดงผลข้อมูล
 
 ## start-service #2
 >> 
 ```
-docker compose up zookeeper kafka
+docker compose up iot-processor
 ```
-
-อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+IoT Processor: บริการเฉพาะที่ทำหน้าที่ประมวลผลข้อมูลจากเซนเซอร์ในระบบ IoT โดยทั่วไปจะทำการดึงข้อมูลจาก Kafka หรือ MQTT และทำการคำนวณหรือแปลงข้อมูลก่อนที่จะส่งต่อผลลัพธ์ไปยังบริการอื่นๆ
 
 ## start-service #3
 >> 
 ```
-docker compose up zookeeper kafka
+docker compose up iot_sensor_1
 ```
-
-อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+IoT Sensor 1: บริการที่จำลองหรือเก็บข้อมูลจริงจากอุปกรณ์ IoT โดยบริการนี้จะส่งข้อมูลเซนเซอร์ไปยัง IoT Processor ผ่านทาง MQTT หรือ Kafka เพื่อทำการวิเคราะห์ต่อไป
