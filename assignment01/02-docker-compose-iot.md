@@ -17,16 +17,6 @@
 2. change all c:/rootfs:ro0 to /:/rootfs:ro because it not window on docker_compose.yml
 3. Allow permission by cd in Gramfana folder and type chmod 777 setup.sh
 
-## Output
-
-- [ ] IoT Sensor - Dashboards - Grafana 
-- [ ] UI for Apache Ka
-- [ ] Mongo Expr
-- [ ] Node Expor
-- [ ] Prometheus Time Series Collection and Processing Ser
-- [ ] Prometheus Pushgateway
-- [ ] ZooNavigator
-
 
 ### IoT Sensor - Dashboards - Grafana URL
 1. check your ip address
@@ -86,3 +76,40 @@ continue to the next step after the state done
 ```
 docker compose up iot_sensor_1
 ```
+
+
+# IoT Docker compose
+>> ให้นำไฟล์ docker-compose.yaml มาอธิบายว่า แต่ละส่วนคืออะไร โดยใช้การ comment ในไฟล์ docker-compose.yaml
+
+
+## start-service #0
+>> 
+```
+docker compose up zookeeper kafka
+```
+
+อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+
+## start-service #1
+>> 
+```
+docker compose up zookeeper kafka
+```
+
+อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+
+## start-service #2
+>> 
+```
+docker compose up zookeeper kafka
+```
+
+อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
+
+## start-service #3
+>> 
+```
+docker compose up zookeeper kafka
+```
+
+อธิบายว่า  หน้าจอที่ 1 ที่ต้องเปิดใช้งาน มีการเปิด service อะไรบ้างใน docker
