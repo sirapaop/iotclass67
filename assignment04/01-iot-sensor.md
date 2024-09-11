@@ -1,9 +1,11 @@
 # Ingest and store real-time data from IoT sensors.
 >> ใช้ software อะไรบ้าง เช่น Eclip MQTT , Microsoft spring boot
 
+ในการดึงและจัดเก็บข้อมูลแบบเรียลไทม์จากเซนเซอร์ IOT ขั้นตอนแรกคือการเก็บข้อมูลโดยใช้ protocal ของ MQTT ซึ่งเหมาะกับอุปกรณ์ IoT ข้อมูลจะถูกส่งไปยัง steaming plattform เช่น Apache Kafka ซึ่งสามารถจัดการกับข้อมูลแบบเรียลไทม์ได้ จากนั้นข้อมูลจะถูกส่งต่อไปยังเฟรมเวิร์กในการประมวลผลแบบเรียลไทม์ และข้อมูลที่ประมวลผลเสร็จแล้วจะถูกเก็บในฐานข้อมูลได้ เช่น MongoDB
 
 ## MQTT Topic and Payload
 >> ใช้ topic ชื่ออะไร payload มีหน้าตาอย่างไร
+
 // topic //
 client.subscribe("iot-frames");
 
