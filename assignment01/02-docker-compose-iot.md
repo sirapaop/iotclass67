@@ -1,11 +1,92 @@
 # IoT Docker compose
-
-
-## How to start docker compose
-1. cd into your gitHub folder
-```bash
-2. sudo docker compose up
+>>
 ```
+  # IoT Sensor 1
+  iot_sensor_1:
+    # image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
+    build:
+      context: ./microservices/iot_sensor
+      args:
+        - MQTT_SERVER=${MQTT_SERVER}
+    container_name: iot_sensor_1
+    restart: unless-stopped
+    environment:
+      - sensor.id=${IOT_SENSOR_1_ID}
+      - sensor.name=${IOT_SENSOR_1_NAME}
+      - sensor.place.id=${IOT_SENSOR_1_PLACE_ID}
+      - sensor.mqtt.username=${IOT_SENSOR_1_USERNAME}
+      - sensor.mqtt.password=${IOT_SENSOR_1_PASSWORD}
+      - MQTT_SERVER=${MQTT_SERVER}
+    depends_on:
+      iot-processor:
+        condition: service_started
+        restart: true
+
+  # # # # IoT Sensor 2
+  # iot_sensor_2:
+  #   image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
+  #   container_name: iot_sensor_2
+  #   restart: unless-stopped
+  #   environment:
+  #     - sensor.id=${IOT_SENSOR_2_ID}
+  #     - sensor.name=${IOT_SENSOR_2_NAME}
+  #     - sensor.place.id=${IOT_SENSOR_2_PLACE_ID}
+  # # # # IoT Sensor 1
+
+  # iot_sensor_3:
+  #   image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
+  #   container_name: iot_sensor_3
+  #   restart: unless-stopped
+  #   environment:
+  #     - sensor.id=${IOT_SENSOR_3_ID}
+  #     - sensor.name=${IOT_SENSOR_3_NAME}
+  #     - sensor.place.id=${IOT_SENSOR_3_PLACE_ID}
+
+  # IoT Processor
+  iot-processor:
+    image: ssanchez11/iot_processor:0.0.1-SNAPSHOT
+    container_name: iot-processor
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      kafka-connect:
+        condition: service_started
+        restart: true
+```
+## start-service #0
+>> 
+```
+docker compose up zookeeper kafka
+```
+zookeeper: มีหน้าที่ในการจัดการ application แบบกระจายตัว
+kafka: Apache Kafka เป็น streaming platform ที่สร้าง real-time data pipelines และ streaming applications. โดยสามารถจัดการข้อมูลขนาดใหญ่ได้
+
+## start-service #1
+>> 
+```
+docker compose up kafka-rest-proxy kafka-connect mosquitto mongo grafana prometheus
+```
+kafka-rest-proxy: เรียกใช้งาน interface แบบ RESTful สำหรับการทำงานกับ Kafka ทำให้สามารถส่งและรับข้อความผ่าน HTTP ได้
+kafka-connect: เป็นเครื่องมือที่ช่วยในการ streaming ข้อมูลระหว่าง Kafka และระบบอื่นๆ
+mosquitto: เป็น broker ของ MQTT ที่ช่วยในการส่งข้อมูล ระหว่างอุปกรณ์ในระบบ IoT โดยใช้การ publish/subscribe
+mongo: เป็น database แบบ NoSQL ที่ใช้ในการจัดเก็บและเรียกคืนข้อมูล
+grafana: เป็นเครื่องมือที่ใช้วิเคราะห์และติดตามที่ใช้สำหรับการแสดงผลข้อมูลจากแหล่งข้อมูลต่างๆ เช่น Prometheus และ MongoDB
+prometheus: ระบบตรวจสอบและการแจ้งเตือนที่ใช้ในการรวบรวมข้อมูลจากบริการต่างๆ โดยปกติจะใช้ร่วมกับ Grafana สำหรับการแสดงผลข้อมูล
+
+## start-service #2
+>> 
+```
+docker compose up iot-processor
+```
+iot-processor: เป็นบริการที่ทำหน้าที่ประมวลผลข้อมูลจาก sensor ในระบบ
+
+## start-service #3
+>> 
+```
+docker compose up iot_sensor_1
+```
+iot_sensor_1: เป็นบริการที่จำลองข้อมูลจากอุปกรณ์ IoT โดยบริการนี้จะส่งข้อมูลเซนเซอร์ไปยัง IOT Processor ผ่านทาง MQTT
 
 ## Error we found 
 1. Zookeeper on docker_compose.yml 
@@ -16,73 +97,3 @@
 1. comment all zookeeper line(201-235) on docker_compose.yml
 2. change all c:/rootfs:ro0 to /:/rootfs:ro because it not window on docker_compose.yml
 3. Allow permission by cd in Gramfana folder and type chmod 777 setup.sh
-
-## Output
-
-- [ ] IoT Sensor - Dashboards - Grafana 
-- [ ] UI for Apache Ka
-- [ ] Mongo Expr
-- [ ] Node Expor
-- [ ] Prometheus Time Series Collection and Processing Ser
-- [ ] Prometheus Pushgateway
-- [ ] ZooNavigator
-
-
-### IoT Sensor - Dashboards - Grafana URL
-1. check your ip address
-2. check your user and password for Grafana (user: admin, password: admin)
-3. open browser and type in your ip address:8085 for example = 172.20.49.244:8085
-
-### UI for Apache Kafka
-
-### Mongo Express
-
-### Node Exporter
-
-### Prometheus Time Series Collection and Processing Server
-
-### Prometheus Pushgateway
-
-### ZooNavigator
-
-### Starting sever
-- if you start the sever for the first time skip step 1 and follow step 2.
-- if your sever is not running you need to follow step 1 and then follow step 2.
-
-#### Step 1
-Stop all container
-```
-docker stop $(docker ps -aq)
-```
-
-Delete all containers
-```
-docker container rm -f $(docker container ls -aq)
-```
-
-Delete all volumes
-```
-docker volume rm -f $(docker volume ls -q)
-```
-
-Delete network
-```
-docker network rm -f $(docker network ls -q)
-```
-#### Step 2
-```
-docker compose up zookeeper kafka
-```
-read the logs before start the next step
-```
-docker compose up kafka-rest-proxy kafka-connect mosquitto mongo grafana prometheus
-```
-read the logs before start the next step
-```
-docker compose up iot-processor
-```
-if the logs : start fail stop the iot-processor and restart again
-continue to the next step after the state done
-```
-docker compose up iot_sensor_1
-```
