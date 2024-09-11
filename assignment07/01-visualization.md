@@ -146,6 +146,7 @@ docker compose restart grafana
 
 3. ออกแบบแผนผังใน drawio ตามความต้องการ ในที่นี้เราใช้เป็นภาพแผนผังบ้าน
 </br>
+
 ![pic_3](./grafana_pic/drawio_houseplan.png)
 </br> 
 
