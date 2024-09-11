@@ -9,6 +9,10 @@ docker compose up mosquitto
 ```
 docker compose logs -f mosquitto
 ```
+## วิธี restart MQTT
+```
+docker compose restart mosquitto
+```
 
 ## iot-sensor-1
 >> เป็น sensor ที่จำลองค่าที่อยู่ภายในเครื่อง server ของตนเอง
