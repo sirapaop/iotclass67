@@ -175,7 +175,7 @@ docker compose restart grafana
     - เลือก key ที่ต้องการมาแสดงใน options โดยในที่นี้เราจะเลือกเป็น sensor_name
       </br>
 
-      ![pic_5.3](./grafana_pic/sensor_name .png)
+      ![pic_5.3](./grafana_pic/sensor_name.png)
       </br> 
     - จากนั้นกด run request
       </br>
