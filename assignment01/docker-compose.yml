@@ -1,7 +1,4 @@
-# IoT Docker compose
->> ให้นำไฟล์ docker-compose.yaml มาอธิบายว่า แต่ละส่วนคืออะไร โดยใช้การ comment ในไฟล์ docker-compose.yaml
-```
-  volumes:
+volumes:
     prometheus_data: {}
     grafana_data: {}
     zookeeper-data:
@@ -13,8 +10,10 @@
 
 services:
 
-  # ZooKeeper เป็นบริการที่เป็นตัวกลางสำหรับการจัดการข้อมูลการกำหนดค่า, การตั้งชื่อ, การกระจาย, และการให้บริการกลุ่ม
-  # ให้การประสานงานแบบกระจายสำหรับ Kafka cluster ของเรา
+  # ZooKeeper is a centralized service for maintaining configuration information,
+  # naming, providing distributed synchronization, and providing group services.
+  # It provides distributed coordination for our Kafka cluster.
+  # http://zookeeper.apache.org/
   zookeeper:
     image: confluentinc/cp-zookeeper
     container_name: zookeeper
@@ -35,8 +34,10 @@ services:
       ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL: 3
 
 
-  # Kafka เป็นแพลตฟอร์มการสตรีมข้อมูลแบบกระจาย ใช้เพื่อสร้าง pipeline แบบ real-time
-  # สามารถสร้างแอปพลิเคชันการสตรีมข้อมูลแบบ real-time
+  # Kafka is a distributed streaming platform. It is used to build real-time streaming
+  # data pipelines that reliably move data between systems and platforms, and to build
+  # real-time streaming applications that transform or react to the streams of data.
+  # http://kafka.apache.org/
   kafka:
     image: confluentinc/cp-kafka
     container_name: kafka
@@ -62,9 +63,11 @@ services:
       - zookeeper
 
 
-  # Kafka REST Proxy ให้การเชื่อมต่อผ่าน RESTful กับ Kafka cluster
-  # ทำให้การผลิตและบริโภคข้อความ, ดูสถานะของ cluster, และดำเนินการจัดการโดยไม่ต้องใช้
-  # โปรโตคอลหรือไคลเอนต์ Kafka แบบดั้งเดิม
+  # The Kafka REST Proxy provides a RESTful interface to a Kafka cluster.
+  # It makes it easy to produce and consume messages, view the state
+  # of the cluster, and perform administrative actions without using
+  # the native Kafka protocol or clients.
+  # https://github.com/confluentinc/kafka-rest
   kafka-rest-proxy:
     image: confluentinc/cp-kafka-rest:latest
     container_name: kafka-rest-proxy
@@ -93,7 +96,10 @@ services:
       - zookeeper
       - kafka
 
-  # Kafka Connect เป็นส่วนประกอบโอเพ่นซอร์สของ Apache Kafka เช่น databases, key-value stores หรือ file systems
+  # Kafka Connect, an open source component of Apache Kafka,
+  # is a framework for connecting Kafka with external systems
+  # such as databases, key-value stores, search indexes, and file systems.
+  # https://docs.confluent.io/current/connect/index.html
   kafka-connect:
     image: confluentinc/cp-kafka-connect:latest
     hostname: kafka-connect
@@ -160,19 +166,6 @@ services:
       - zookeeper
       - kafka
 
-  # Mosquitto เป็น broker ของ MQTT protocol ใช้สำหรับส่งข้อมูล
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    hostname: mosquitto
-    container_name: mosquitto
-    restart: unless-stopped
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./mosquitto/config:/mosquitto/config
-
-  # MongoDB เป็น data base ที่ใช้เก็บข้อมูล
   mongo:
     image: mongo:4.4.20
     container_name: mongo
@@ -184,8 +177,11 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_DB}
   
-  # Grafana เป็นแอปพลิเคชันโอเพ่นซอร์สสำหรับการวิเคราะห์และการแสดงผลแบบโต้ตอบ เช่น กราฟ และแผนภูมิ
-  # สามารถโหลด plug-in เพิ้มได้
+  # Grafana is a multi-platform open source analytics and interactive visualization web application. 
+  # It provides charts, graphs, and alerts for the web when connected to supported data sources. 
+  # It is expandable through a plug-in system. End users can create complex monitoring dashboards using interactive query builders.
+  # https://github.com/hanattaw/grafana-flowcharting
+  # from link above, some fixed for plugin flowcharting. You need to manually install plugin.
   grafana:
     image: grafana/grafana:latest-ubuntu
     container_name: grafana
@@ -209,8 +205,10 @@ services:
     ports:
       - '8085:3000'
   
-  # Prometheus เป็นแอปพลิเคชันซอฟต์แวร์ฟรีสำหรับการตรวจสอบเหตุการณ์และการแจ้งเตือน
-  # บันทึกข้อมูลเมตริกแบบเรียลไทม์ในฐานข้อมูล time series โดยใช้โมเดล HTTP pull
+  # Prometheus is a free software application used for event monitoring and alerting.
+  # It records real-time metrics in a time series database built using a HTTP pull model, with flexible queries and real-time alerting.
+  # The project is written in Go and licensed under the Apache 2 License, with source code available on GitHub,
+  # and is a graduated project of the Cloud Native Computing Foundation, along with Kubernetes and Envoy.
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -228,8 +226,7 @@ services:
     ports:
       - '8086:9090'
  
-
-  # IoT Sensor 1 เป็น service ที่จำลองการทำงานของ sensor ที่อยู่ในตัว server
+  # IoT Sensor 1
   iot_sensor_1:
     # image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
     build:
@@ -250,7 +247,27 @@ services:
         condition: service_started
         restart: true
 
-  # IoT Processor เป็น service ที่ประมวลผลข้อมูล และ ส่งไปที่ Kafka
+  # # # # IoT Sensor 2
+  # iot_sensor_2:
+  #   image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
+  #   container_name: iot_sensor_2
+  #   restart: unless-stopped
+  #   environment:
+  #     - sensor.id=${IOT_SENSOR_2_ID}
+  #     - sensor.name=${IOT_SENSOR_2_NAME}
+  #     - sensor.place.id=${IOT_SENSOR_2_PLACE_ID}
+  # # # # IoT Sensor 1
+
+  # iot_sensor_3:
+  #   image: ssanchez11/iot_sensor:0.0.1-SNAPSHOT
+  #   container_name: iot_sensor_3
+  #   restart: unless-stopped
+  #   environment:
+  #     - sensor.id=${IOT_SENSOR_3_ID}
+  #     - sensor.name=${IOT_SENSOR_3_NAME}
+  #     - sensor.place.id=${IOT_SENSOR_3_PLACE_ID}
+
+  # IoT Processor
   iot-processor:
     image: ssanchez11/iot_processor:0.0.1-SNAPSHOT
     container_name: iot-processor
@@ -261,48 +278,3 @@ services:
       kafka-connect:
         condition: service_started
         restart: true
-```
-
-## start-service #0
->> 
-```
-docker compose up zookeeper kafka
-```
-zookeeper: มีหน้าที่ในการจัดการ application แบบกระจายตัว
-kafka: Apache Kafka เป็น streaming platform ที่สร้าง real-time data pipelines และ streaming applications. โดยสามารถจัดการข้อมูลขนาดใหญ่ได้
-
-## start-service #1
->> 
-```
-docker compose up kafka-rest-proxy kafka-connect mosquitto mongo grafana prometheus
-```
-kafka-rest-proxy: เรียกใช้งาน interface แบบ RESTful สำหรับการทำงานกับ Kafka ทำให้สามารถส่งและรับข้อความผ่าน HTTP ได้
-kafka-connect: เป็นเครื่องมือที่ช่วยในการ streaming ข้อมูลระหว่าง Kafka และระบบอื่นๆ
-mosquitto: เป็น broker ของ MQTT ที่ช่วยในการส่งข้อมูล ระหว่างอุปกรณ์ในระบบ IoT โดยใช้การ publish/subscribe
-mongo: เป็น database แบบ NoSQL ที่ใช้ในการจัดเก็บและเรียกคืนข้อมูล
-grafana: เป็นเครื่องมือที่ใช้วิเคราะห์และติดตามที่ใช้สำหรับการแสดงผลข้อมูลจากแหล่งข้อมูลต่างๆ เช่น Prometheus และ MongoDB
-prometheus: ระบบตรวจสอบและการแจ้งเตือนที่ใช้ในการรวบรวมข้อมูลจากบริการต่างๆ โดยปกติจะใช้ร่วมกับ Grafana สำหรับการแสดงผลข้อมูล
-
-## start-service #2
->> 
-```
-docker compose up iot-processor
-```
-iot-processor: เป็นบริการที่ทำหน้าที่ประมวลผลข้อมูลจาก sensor ในระบบ
-
-## start-service #3
->> 
-```
-docker compose up iot_sensor_1
-```
-iot_sensor_1: เป็นบริการที่จำลองข้อมูลจากอุปกรณ์ IoT โดยบริการนี้จะส่งข้อมูลเซนเซอร์ไปยัง IOT Processor ผ่านทาง MQTT
-
-## Error we found 
-1. Zookeeper on docker_compose.yml 
-2. root error c:/rootfs:ro0 on docker_compose.yml  
-3. don't have permission for ./grafana/setup.sh:/setup.sh 
-
-## How to solve the problems.
-1. comment all zookeeper line(201-235) on docker_compose.yml
-2. change all c:/rootfs:ro0 to /:/rootfs:ro because it not window on docker_compose.yml
-3. Allow permission by cd in Gramfana folder and type chmod 777 setup.sh

@@ -4,7 +4,7 @@ assignment00
 
 ## Architecture Overview
 
-![IoT Event Streaming Architecture](https://miro.medium.com/v2/resize:fit:2000/format:webp/1*IUaBLlbVKgmsjbjqzew0ZQ.png)
+![IoT Event Streaming Architecture](./IOT.png)
 
 ## Eclipse Mosquitto
 Eclipse Mosquitto เป็นซอฟต์แวร์โอเพนซอร์ส ทำหน้าที่เป็นตัวกลางส่งข้อความซึ่งนำมาใช้งานกับโปรโตคอล 

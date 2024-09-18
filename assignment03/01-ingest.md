@@ -1,31 +1,42 @@
-# MQTT
+# Ingest and store real-time data from IoT sensors 
+>> ในการดึงและจัดเก็บข้อมูลแบบเรียลไทม์จากเซนเซอร์ IOT ขั้นตอนแรกคือการเก็บข้อมูลโดยใช้ protocal ของ MQTT ซึ่งเหมาะกับอุปกรณ์ IoT ข้อมูลจะถูกส่งไปยัง steaming plattform เช่น Apache Kafka ซึ่งสามารถจัดการกับข้อมูลแบบเรียลไทม์ได้ จากนั้นข้อมูลจะถูกส่งต่อไปยังเฟรมเวิร์กในการประมวลผลแบบเรียลไทม์ และข้อมูลที่ประมวลผลเสร็จแล้วจะถูกเก็บในฐานข้อมูลได้ เช่น MongoDB
 
-## Run MQTT โดยการใช้คำสั่ง 
+## วิธี Run MQTT 
 ```
 docker compose up mosquitto
 ```
-## Check MQTT status โดยการใช้คำสั่ง logs
+## วิธี Check MQTT status
 ```
 docker compose logs -f mosquitto
 ```
+## วิธี restart MQTT
+```
+docker compose restart mosquitto
+```
 
-## MQTT topic for subcribe value
-IOT_SENSOR_1    : FROM THE SEVER
-IOT_SENSOR_2    : FROM ANOTHER COMPUTER IN THE SAME NETWORK
-IOT_SENSOR_3-10 : FROM CUCUMBER THAT USE THIS TOPIC IN THE SAME NETWORK
+## iot-sensor-1
+>> เป็น sensor ที่จำลองค่าที่อยู่ภายในเครื่อง server ของตนเอง
 ```
     IOT_SENSOR_1_ID=12434345
     IOT_SENSOR_1_NAME=iot_sensor_11
     IOT_SENSOR_1_PLACE_ID=32347983
     IOT_SENSOR_1_USERNAME=iot-wangs-11
     IOT_SENSOR_1_PASSWORD=12345
+```
 
+## iot-sensor-2
+>> เป็น sensor ที่จำลองค่าที่อยู่ภายในเครื่องที่ต่ออยู่ใน Network วง LAN เดียวกัน
+```
     IOT_SENSOR_2_ID=21321434
     IOT_SENSOR_2_NAME=iot-wangs-12
     IOT_SENSOR_2_PLACE_ID=32347983
     IOT_SENSOR_2_USERNAME=iot-wangs-12
     IOT_SENSOR_2_PASSWORD=12345
+```
 
+## iot-sensor-3-10
+>> เป็น sensor ที่รับค่าจาก borad cucumber จากเพื่อนจำนวน 7 ตัวที่ subcribe mqtt topic และอยู่ใน Network วง LAN เดียวกัน
+```
     IOT_SENSOR_3_ID=43245253
     IOT_SENSOR_3_NAME=iot-wangs-13
     IOT_SENSOR_3_PLACE_ID=32347983
