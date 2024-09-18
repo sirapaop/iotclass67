@@ -289,4 +289,4 @@ void loop() {
   delay(1000);
 }
 ```
-![iot sensor flow chart](./iot-sensor.png)
+![iot sensor flow chart](./iot-sensor-1.png)
