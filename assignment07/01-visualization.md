@@ -240,3 +240,6 @@ docker compose restart grafana
 ![pic_7](./grafana_pic/duplicate.png)
 </br> 
 
+# Node Exporter.
+
+![pic_8](./grafana_pic/nodeEx.png)
