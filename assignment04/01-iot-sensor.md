@@ -5,7 +5,7 @@
 
 ## MQTT Topic and Payload
 >> ใช้ topic ชื่ออะไร payload มีหน้าตาอย่างไร
-
+```java
 // topic //
 client.subscribe("iot-frames");
 
@@ -19,10 +19,10 @@ doc["payload"]["temperature"] = temperature;
 doc["payload"]["humidity"] = humidity; // Update with correct humidity reading
 doc["payload"]["pressure"] = p;
 doc["payload"]["luminosity"] = ldrValue;
-
+```
 ## ESP32
 >> เอา code ที่ใช้มาวาง พร้อมทั้งวาดรูป flow chart
-```
+```java
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
