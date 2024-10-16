@@ -1,6 +1,6 @@
 # Analyze and make aggregations.
 ในการวิเคราะห์ข้อมูลจากหัวข้อ iot-frames ที่รับข้อมูลจากเซนเซอร์ เราจะนำข้อมูลไปประมวลผลเพื่อให้ได้ข้อมูลที่มีประโยชน์ โดยในสถาปัตยกรรมนี้เราใช้ microservice ที่ชื่อว่า iot-processor ซึ่งใช้งาน Kafka Streams และมีการตั้งค่าทั้งหมดภายในคลาสนี้สำหรับการประมวลผลสตรีมข้อมูล
-```
+```java
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
@@ -42,7 +42,7 @@ public class KafkaStreamsConfig {
 ## การรวมข้อมูลตามเซนเซอร์
 ตัวประมวลผลตัวแรก Aggregate Metrics By Sensor Processor จะทำการรวมข้อมูลตาม sensor id โดยใช้ rotating time window ทุกๆ 5 นาทีเพื่อคำนวณค่าเฉลี่ย เช่น อุณหภูมิ ความชื้น ความดัน แสงสว่าง โดยข้อมูลที่รวมนี้จะถูกส่งไปยัง Kafka โดยใช้ SerDe เพื่อทำการ serialize และ deserialize ข้อมูล
 
-```
+```java
 @Component
 public class AggregateMetricsBySensorProcessor {
 
@@ -98,7 +98,7 @@ public class AggregateMetricsBySensorProcessor {
 ## การรวมข้อมูลตามสถานที่
 ตัวประมวลผลที่สอง Aggregate Metrics By Place Processor ทำการรวมข้อมูลแบบเดียวกับเซนเซอร์ แต่ใช้ตัวระบุสถานที่เพื่อคำนวณค่าเฉลี่ยตามสถานที่
 
-```
+```java
 @Component
 public class AggregateMetricsByPlaceProcessor {
 
@@ -151,7 +151,7 @@ public class AggregateMetricsByPlaceProcessor {
 
 ## การแปลงข้อมูลเป็นรูปแบบที่เข้ากับ Prometheus
 โปรเซสเซอร์ตัวสุดท้าย Metrics Time Series Processor จะเปลี่ยนข้อมูลเป็น schema ที่รองรับการทำงานกับ Prometheus โดยใช้ sensor id และ place id เป็นมิติข้อมูล และ Payload จะถูกแสดงเป็นข้อมูลที่สามารถใช้ใน Grafana
-```
+```java
 @Component
 public class MetricsTimeSeriesProcessor {
 
