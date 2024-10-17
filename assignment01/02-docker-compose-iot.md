@@ -266,36 +266,56 @@ services:
 ## start-service #0
 >> 
 ```
+sh start_0zookeeper_kafka.sh
+```
+โดยคำสั่ง
+```
 docker compose up zookeeper kafka
 ```
-zookeeper: มีหน้าที่ในการจัดการ application แบบกระจายตัว
-kafka: Apache Kafka เป็น streaming platform ที่สร้าง real-time data pipelines และ streaming applications. โดยสามารถจัดการข้อมูลขนาดใหญ่ได้
+จะเป็นการ start 2 service 
+- zookeeper มีหน้าที่ในการจัดการ application แบบกระจายตัว
+- kafka เป็น streaming platform ที่สร้าง real-time data pipelines และ streaming applications. โดยสามารถจัดการข้อมูลขนาดใหญ่ได้
 
 ## start-service #1
 >> 
 ```
+sh start_1kafka_service.sh
+```
+โดยคำสั่ง
+```
 docker compose up kafka-rest-proxy kafka-connect mosquitto mongo grafana prometheus
 ```
-kafka-rest-proxy: เรียกใช้งาน interface แบบ RESTful สำหรับการทำงานกับ Kafka ทำให้สามารถส่งและรับข้อความผ่าน HTTP ได้
-kafka-connect: เป็นเครื่องมือที่ช่วยในการ streaming ข้อมูลระหว่าง Kafka และระบบอื่นๆ
-mosquitto: เป็น broker ของ MQTT ที่ช่วยในการส่งข้อมูล ระหว่างอุปกรณ์ในระบบ IoT โดยใช้การ publish/subscribe
-mongo: เป็น database แบบ NoSQL ที่ใช้ในการจัดเก็บและเรียกคืนข้อมูล
-grafana: เป็นเครื่องมือที่ใช้วิเคราะห์และติดตามที่ใช้สำหรับการแสดงผลข้อมูลจากแหล่งข้อมูลต่างๆ เช่น Prometheus และ MongoDB
-prometheus: ระบบตรวจสอบและการแจ้งเตือนที่ใช้ในการรวบรวมข้อมูลจากบริการต่างๆ โดยปกติจะใช้ร่วมกับ Grafana สำหรับการแสดงผลข้อมูล
+จะเป็นการ start 6 service 
+- kafka-rest-proxy เป็นการเรียกใช้งาน interface แบบ RESTful สำหรับการทำงานกับ Kafka ทำให้สามารถส่งและรับข้อความผ่าน HTTP ได้
+- kafka-connect เป็นเครื่องมือที่ช่วยในการ streaming ข้อมูลระหว่าง Kafka และระบบอื่นๆ
+- mosquitto เป็น broker ของ MQTT ที่ช่วยในการส่งข้อมูล ระหว่างอุปกรณ์ในระบบ IoT โดยใช้การ publish/subscribe
+- mongo เป็น database แบบ NoSQL ที่ใช้ในการจัดเก็บและเรียกคืนข้อมูล
+- grafana เป็นเครื่องมือที่ใช้วิเคราะห์และติดตามที่ใช้สำหรับการแสดงผลข้อมูลจากแหล่งข้อมูลต่างๆ เช่น Prometheus และ MongoDB
+- prometheus เป็นระบบตรวจสอบและการแจ้งเตือนที่ใช้ในการรวบรวมข้อมูลจากบริการต่างๆ โดยปกติจะใช้ร่วมกับ Grafana สำหรับการแสดงผลข้อมูล
 
 ## start-service #2
 >> 
 ```
+sh start_2iot_processor.sh
+```
+โดยคำสั่ง
+```
 docker compose up iot-processor
 ```
-iot-processor: เป็นบริการที่ทำหน้าที่ประมวลผลข้อมูลจาก sensor ในระบบ
+จะเป็นการ start 1 service 
+- iot-processor เป็นบริการที่ทำหน้าที่ประมวลผลข้อมูลจาก sensor ในระบบ
 
 ## start-service #3
 >> 
 ```
+sh start_3iot_sensor.sh
+```
+โดยคำสั่ง
+```
 docker compose up iot_sensor_1
 ```
-iot_sensor_1: เป็นบริการที่จำลองข้อมูลจากอุปกรณ์ IoT โดยบริการนี้จะส่งข้อมูลเซนเซอร์ไปยัง IOT Processor ผ่านทาง MQTT
+จะเป็นการ start 1 service 
+- iot_sensor_1 เป็นบริการที่จำลองข้อมูลจากอุปกรณ์ IoT โดยบริการนี้จะส่งข้อมูลเซนเซอร์ไปยัง IOT Processor ผ่านทาง MQTT
 
 ## Error we found 
 1. Zookeeper on docker_compose.yml 

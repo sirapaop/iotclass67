@@ -1,6 +1,11 @@
 # Store data.
 การจัดเก็บข้อมูล ในขั้นตอนนี้จะเน้นการย้ายข้อมูลที่ผ่านการประมวลผลจาก Kafka topics ไปยัง MongoDB collections เพื่อสามารถดูข้อมูลเหล่านี้ผ่านเครื่องมืออย่าง MongoDB-Express ได้ โดยมีการตั้งค่าตัวเชื่อมต่อ MongoDBSinkConnector ทั้งหมด 3 ตัว ซึ่งแต่ละตัวจะทำงานกับ topic ที่แตกต่างกันจาก Kafka และย้ายข้อมูลไปยัง collection ที่เกี่ยวข้องใน MongoDB
 
+โดยเราจะใช้ MongoDB Sink Connector  ซึ่งเป็น connector ที่เราใช้ในการเขียนและส่ง ข้อมูลจาก Kafka topic ไปยัง database หรือ data system ที่เราต้องการได้ ซึ่งในงานนี้เราจะใช้ทั้งหมด 3 ตัวคือ 
+- iot-frames 
+- iot_aggregate_metric_sensor
+- iot_aggregate_metrics_place
+
 ## ตัวเชื่อมต่อแรก
 ตัวเชื่อมต่อนี้จะย้ายข้อมูลดั้งเดิมทั้งหมดจาก topic iot-frames ไปยัง collection iot_frames ในฐานข้อมูล iot โดยจะทำงานกับ JSON โดยไม่กำหนด schema เช่น Avro หรือ JSON-Schema เพื่อทำให้กระบวนการง่ายขึ้น
 ```
