@@ -5,24 +5,25 @@
 
 ## MQTT Topic and Payload
 >> ใช้ topic ชื่ออะไร payload มีหน้าตาอย่างไร
-
+```cpp
 // topic //
-client.subscribe("iot-frames");
+client1.subscribe("iot-frames");
 
-// Payload //
-doc["id"] = "43245253";
-doc["name"] = "iot_sensor_3";
-doc["place_id"] = "42343243";
-doc["date"] = NTP.getTimeDateString(time(NULL), "%Y-%m-%dT%H:%M:%S");
-doc["timestamp"] = epochTime; // Convert to milliseconds
-doc["payload"]["temperature"] = temperature;
-doc["payload"]["humidity"] = humidity; // Update with correct humidity reading
-doc["payload"]["pressure"] = p;
-doc["payload"]["luminosity"] = ldrValue;
-
+// Payload
+StaticJsonDocument<capacity> doc1;
+doc1["id"] = "43245253";
+doc1["name"] = "iot-wangs-13";
+doc1["place_id"] = "42343243";
+doc1["date"] = NTP.getTimeDateString(time(NULL), "%Y-%m-%dT%H:%M:%S");
+doc1["timestamp"] = epochTime; // Convert to milliseconds
+doc1["payload"]["temperature"] = temperature;
+doc1["payload"]["humidity"] = humidity; // Update with correct humidity reading
+doc1["payload"]["pressure"] = p / 100;
+doc1["payload"]["luminosity"] = ldrValue;
+```
 ## ESP32
 >> เอา code ที่ใช้มาวาง พร้อมทั้งวาดรูป flow chart
-```
+```cpp
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
@@ -289,4 +290,4 @@ void loop() {
   delay(1000);
 }
 ```
-![iot sensor flow chart](./iot-sensor.png)
+![iot sensor flow chart](./iot-sensor-1.png)

@@ -111,6 +111,7 @@ unzip agenty-flowcharting-panel-1.0.0e.231214594-SNAPSHOT.zip
 mv dist ../grafana-flowcharting-panel
 ```
 </br>
+
 #### แก้ไขให้ grafana รองรับ angular plugin ได้เนื่องจาก grafana เวอร์ชั่นใหม่ ๆ ไม่รองรับแล้ว แต่เราแก้ไขได้
 
 - เข้าไปใน container ของ grafana
@@ -223,3 +224,6 @@ docker compose restart grafana
 ![pic_7](./grafana_pic/duplicate.png)
 </br> 
 
+# Node Exporter.
+
+![pic_8](./grafana_pic/nodeEx.png)
